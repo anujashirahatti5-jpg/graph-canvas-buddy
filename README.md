@@ -87,25 +87,25 @@ After exporting the project to GitHub, strict mode can be enabled locally by upd
     "strict": true
   }
 }
- 📁 Project Structure (High Level)
+ ## 📁 Project Structure (High Level)
 
-```
-Scr/
+```text
+src/
 ├─ components/
-│ ├─ AppSelector.tsx
-│ ├─ NodeInspector.tsx
-│ └─ Layout.tsx
+│  ├─ AppSelector.tsx
+│  ├─ NodeInspector.tsx
+│  └─ Layout.tsx
 ├─ store/
-│ └─ useAppStore.ts
+│  └─ useAppStore.ts
 ├─ hooks/
-│ └─ useAppsQuery.ts
+│  └─ useAppsQuery.ts
 ├─ mocks/
-│ └─ api.ts
+│  └─ api.ts
 ├─ pages/
-│ └─ AppGraph.tsx
+│  └─ AppGraph.tsx
 └─ main.tsx
 ```
-```
+
 ## 🎯 Key Engineering Decisions
 
 - Zustand used for UI-level state management to avoid prop drilling
