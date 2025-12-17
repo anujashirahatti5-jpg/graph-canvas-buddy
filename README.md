@@ -45,7 +45,6 @@ The application allows users to select an app, visualize its service graph using
   - Right panel converts into a slide-over drawer on mobile screens
 
 ---
-
 ## 🛠 Tech Stack
 
 - React + Vite
@@ -73,13 +72,15 @@ npm install
 npm run dev
 ## ⚠️ TypeScript Strict Mode Note
 
-Due to **Lovable platform limitations**, the following configuration files are **read-only** inside the editor:
+## ⚠️ TypeScript Strict Mode Note
+
+In the initial project setup, certain TypeScript configuration files were not editable in the hosted development environment:
 
 - tsconfig.json  
 - tsconfig.app.json  
 - package.json  
 
-After exporting the project to GitHub, strict mode can be enabled locally by updating:
+After exporting the project to GitHub, **TypeScript strict mode was enabled locally** by updating:
 
 ```json
 {
@@ -87,6 +88,7 @@ After exporting the project to GitHub, strict mode can be enabled locally by upd
     "strict": true
   }
 }
+
  ## 📁 Project Structure (High Level)
 src/
 ├─ components/
