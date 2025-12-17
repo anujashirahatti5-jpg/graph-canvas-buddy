@@ -3,7 +3,7 @@
 A responsive **App Graph Builder UI** developed as part of a **Frontend Intern take-home assignment**.  
 The application allows users to select an app, visualize its service graph using ReactFlow, and inspect/configure nodes via an interactive side panel.
 
-🔗 **Live Demo:** https://graph-canvas.vercel.app/
+🔗 **Live Demo:**(https://reactflow-app-canvas.vercel.app/)
 
 ---
 
