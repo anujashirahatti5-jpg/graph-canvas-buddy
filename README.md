@@ -87,42 +87,41 @@ After exporting the project to GitHub, strict mode can be enabled locally by upd
     "strict": true
   }
 }
-## 📁 Project Structure (High Level)
+ 📁 Project Structure (High Level)
 
 ```
-src/
- ├─ components/
- │   ├─ AppSelector.tsx
- │   ├─ NodeInspector.tsx
- │   └─ Layout.tsx
- ├─ store/
- │   └─ useAppStore.ts
- ├─ hooks/
- │   └─ useAppsQuery.ts
- ├─ mocks/
- │   └─ api.ts
- ├─ pages/
- │   └─ AppGraph.tsx
- └─ main.tsx
+Scr/
+├─ components/
+│ ├─ AppSelector.tsx
+│ ├─ NodeInspector.tsx
+│ └─ Layout.tsx
+├─ store/
+│ └─ useAppStore.ts
+├─ hooks/
+│ └─ useAppsQuery.ts
+├─ mocks/
+│ └─ api.ts
+├─ pages/
+│ └─ AppGraph.tsx
+└─ main.tsx
 ```
-
 ---
-
+```
 ## 🎯 Key Engineering Decisions
 
-- Zustand used for UI-level state management to avoid prop drilling  
-- TanStack Query used for async data fetching, caching, and error handling  
-- Mock APIs implemented using in-memory data with artificial delay  
-- ReactFlow isolated to canvas concerns for clean separation of logic  
-- shadcn/ui used for consistent, accessible UI components  
+- Zustand used for UI-level state management to avoid prop drilling
+- TanStack Query used for async data fetching, caching, and error handling
+- Mock APIs implemented using in-memory data with artificial delay
+- ReactFlow isolated to canvas concerns for clean separation of logic
+- shadcn/ui used for consistent, accessible UI components
 
 ---
 
 ## 📌 Known Limitations
 
-- Mock APIs only (no backend persistence)  
-- Basic node types  
-- TypeScript strict mode requires local enablement after export  
+- Mock APIs only (no backend persistence)
+- Basic node types
+- TypeScript strict mode requires local enablement after export
 
 ---
 
@@ -131,3 +130,4 @@ src/
 **Anuja Shirahatti**  
 Frontend / ECE Student  
 Interested in building scalable, interactive web applications using modern React tools.
+```
