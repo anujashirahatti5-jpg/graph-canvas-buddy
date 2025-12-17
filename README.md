@@ -105,7 +105,6 @@ Scr/
 │ └─ AppGraph.tsx
 └─ main.tsx
 ```
----
 ```
 ## 🎯 Key Engineering Decisions
 
@@ -130,4 +129,4 @@ Scr/
 **Anuja Shirahatti**  
 Frontend / ECE Student  
 Interested in building scalable, interactive web applications using modern React tools.
-```
+
