@@ -67,7 +67,7 @@ The application allows users to select an app, visualize its service graph using
 ### Steps
 
 ```bash
-git clone https://github.com/<your-username>/app-graph-builder.git
+https://github.com/anujashirahatti5-jpg/graph-canvas-buddy.git
 cd app-graph-builder
 npm install
 npm run dev
