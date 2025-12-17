@@ -88,8 +88,6 @@ After exporting the project to GitHub, strict mode can be enabled locally by upd
   }
 }
  ## 📁 Project Structure (High Level)
-
-```text
 src/
 ├─ components/
 │  ├─ AppSelector.tsx
