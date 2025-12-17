@@ -1,73 +1,133 @@
-# Welcome to your Lovable project
+# App Graph Builder (ReactFlow Canvas)
 
-## Project info
+A responsive **App Graph Builder UI** developed as part of a **Frontend Intern take-home assignment**.  
+The application allows users to select an app, visualize its service graph using ReactFlow, and inspect/configure nodes via an interactive side panel.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🔗 **Live Demo:** https://graph-canvas.vercel.app/
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+- **Structured Layout**
+  - Top navigation bar
+  - Left sidebar navigation
+  - Central ReactFlow canvas with dotted background
+  - Right-side inspector panel
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **ReactFlow Canvas**
+  - Render 3+ nodes and 2+ edges
+  - Drag, select, zoom, and pan nodes
+  - Delete selected node using `Delete / Backspace`
+  - Fit view on initial load
+  - Clean empty state when no app is selected
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Node Inspector**
+  - Status badge (Healthy / Degraded / Down)
+  - Tab-based UI (Config & Runtime)
+  - Editable node name field
+  - Slider and numeric input synced bidirectionally
+  - Updates persisted to node data
 
-**Use your preferred IDE**
+- **State Management (Zustand)**
+  - Selected app ID
+  - Selected node ID
+  - Mobile panel open/close state
+  - Active inspector tab
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Data Fetching (TanStack Query)**
+  - Mock APIs with simulated latency
+  - App list and graph fetching
+  - Loading and error handling
+  - Cached responses
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Responsive Design**
+  - Right panel converts into a slide-over drawer on mobile screens
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠 Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
+- React + Vite
 - TypeScript
-- React
-- shadcn-ui
+- ReactFlow (xyflow)
+- Zustand
+- TanStack Query
+- shadcn/ui
 - Tailwind CSS
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 📦 Getting Started (Local Setup)
 
-## Can I connect a custom domain to my Lovable project?
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm
 
-Yes, you can!
+### Steps
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```bash
+git clone https://github.com/<your-username>/app-graph-builder.git
+cd app-graph-builder
+npm install
+npm run dev
+## ⚠️ TypeScript Strict Mode Note
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Due to **Lovable platform limitations**, the following configuration files are **read-only** inside the editor:
+
+- tsconfig.json  
+- tsconfig.app.json  
+- package.json  
+
+After exporting the project to GitHub, strict mode can be enabled locally by updating:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true
+  }
+}
+## 📁 Project Structure (High Level)
+
+```
+src/
+ ├─ components/
+ │   ├─ AppSelector.tsx
+ │   ├─ NodeInspector.tsx
+ │   └─ Layout.tsx
+ ├─ store/
+ │   └─ useAppStore.ts
+ ├─ hooks/
+ │   └─ useAppsQuery.ts
+ ├─ mocks/
+ │   └─ api.ts
+ ├─ pages/
+ │   └─ AppGraph.tsx
+ └─ main.tsx
+```
+
+---
+
+## 🎯 Key Engineering Decisions
+
+- Zustand used for UI-level state management to avoid prop drilling  
+- TanStack Query used for async data fetching, caching, and error handling  
+- Mock APIs implemented using in-memory data with artificial delay  
+- ReactFlow isolated to canvas concerns for clean separation of logic  
+- shadcn/ui used for consistent, accessible UI components  
+
+---
+
+## 📌 Known Limitations
+
+- Mock APIs only (no backend persistence)  
+- Basic node types  
+- TypeScript strict mode requires local enablement after export  
+
+---
+
+## 👩‍💻 Author
+
+**Anuja Shirahatti**  
+Frontend / ECE Student  
+Interested in building scalable, interactive web applications using modern React tools.
