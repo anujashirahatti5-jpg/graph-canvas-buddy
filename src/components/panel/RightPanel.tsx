@@ -1,109 +1,68 @@
-import { X, PanelRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { useAppStore } from '@/store/appStore';
 import { AppList } from './AppList';
 import { NodeInspector } from './NodeInspector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export function RightPanel() {
-  const { isMobilePanelOpen, setMobilePanelOpen } = useAppStore();
-  
+function PanelContent() {
   return (
     <>
-      {/* Desktop Panel - always visible */}
-      <aside className="hidden lg:flex w-80 bg-card border-l border-border flex-col flex-shrink-0">
-        <ScrollArea className="flex-1">
-          {/* Apps section */}
-          <div>
-            <div className="px-4 py-3 border-b border-border">
-              <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                Applications
-              </h2>
-            </div>
-            <AppList />
-          </div>
-          
-          <Separator />
-          
-          {/* Inspector section */}
-          <div>
-            <div className="px-4 py-3 border-b border-border">
-              <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                Node Inspector
-              </h2>
-            </div>
-            <NodeInspector />
-          </div>
-        </ScrollArea>
-      </aside>
+      {/* Apps section */}
+      <div>
+        <div className="px-4 py-3 border-b border-border">
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Applications
+          </h2>
+        </div>
+        <AppList />
+      </div>
       
-      {/* Mobile Panel - slide over drawer */}
-      <div className="lg:hidden">
-        {/* Mobile overlay */}
-        {isMobilePanelOpen && (
-          <div
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
-            onClick={() => setMobilePanelOpen(false)}
-          />
-        )}
-        
-        {/* Mobile Panel */}
-        <aside
-          className={cn(
-            'fixed right-0 top-0 bottom-0 w-80 bg-card border-l border-border flex flex-col z-50',
-            'transition-transform duration-300 ease-out',
-            isMobilePanelOpen ? 'translate-x-0' : 'translate-x-full'
-          )}
-        >
-          {/* Mobile header */}
-          <div className="flex items-center justify-between p-3 border-b border-border">
-            <span className="text-sm font-medium text-foreground">Panel</span>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setMobilePanelOpen(false)}
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-          
-          <ScrollArea className="flex-1">
-            {/* Apps section */}
-            <div>
-              <div className="px-4 py-3 border-b border-border">
-                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Applications
-                </h2>
-              </div>
-              <AppList />
-            </div>
-            
-            <Separator />
-            
-            {/* Inspector section */}
-            <div>
-              <div className="px-4 py-3 border-b border-border">
-                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Node Inspector
-                </h2>
-              </div>
-              <NodeInspector />
-            </div>
-          </ScrollArea>
-        </aside>
-        
-        {/* Mobile toggle button */}
-        <Button
-          variant="outline"
-          size="icon"
-          className="fixed right-4 bottom-4 z-30 shadow-lg bg-card"
-          onClick={() => setMobilePanelOpen(true)}
-        >
-          <PanelRight className="w-4 h-4" />
-        </Button>
+      <Separator />
+      
+      {/* Inspector section */}
+      <div>
+        <div className="px-4 py-3 border-b border-border">
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Node Inspector
+          </h2>
+        </div>
+        <NodeInspector />
       </div>
     </>
+  );
+}
+
+export function RightPanel() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  
+  return (
+    <div className="flex flex-shrink-0 h-full">
+      {/* Toggle button */}
+      <div className="flex items-start pt-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 w-6 rounded-l-lg rounded-r-none border border-r-0 border-border bg-card hover:bg-accent"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          {isCollapsed ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+        </Button>
+      </div>
+      
+      {/* Panel content */}
+      <aside 
+        className={cn(
+          'bg-card border-l border-border flex flex-col overflow-hidden transition-all duration-300',
+          isCollapsed ? 'w-0 border-l-0' : 'w-72 sm:w-80'
+        )}
+      >
+        <ScrollArea className="flex-1">
+          <PanelContent />
+        </ScrollArea>
+      </aside>
+    </div>
   );
 }
