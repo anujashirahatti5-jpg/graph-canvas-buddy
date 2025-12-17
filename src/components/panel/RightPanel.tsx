@@ -12,35 +12,8 @@ export function RightPanel() {
   
   return (
     <>
-      {/* Mobile overlay */}
-      {isMobilePanelOpen && (
-        <div
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setMobilePanelOpen(false)}
-        />
-      )}
-      
-      {/* Panel */}
-      <aside
-        className={cn(
-          'w-80 bg-card border-l border-border flex flex-col',
-          'fixed right-0 top-14 bottom-0 z-50 lg:relative lg:top-0',
-          'transition-transform duration-300 ease-out',
-          isMobilePanelOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
-        )}
-      >
-        {/* Mobile header */}
-        <div className="flex items-center justify-between p-3 border-b border-border lg:hidden">
-          <span className="text-sm font-medium text-foreground">Panel</span>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setMobilePanelOpen(false)}
-          >
-            <X className="w-4 h-4" />
-          </Button>
-        </div>
-        
+      {/* Desktop Panel - always visible */}
+      <aside className="hidden lg:flex w-80 bg-card border-l border-border flex-col flex-shrink-0">
         <ScrollArea className="flex-1">
           {/* Apps section */}
           <div>
@@ -66,15 +39,71 @@ export function RightPanel() {
         </ScrollArea>
       </aside>
       
-      {/* Mobile toggle button */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed right-4 bottom-4 z-30 lg:hidden shadow-lg"
-        onClick={() => setMobilePanelOpen(true)}
-      >
-        <PanelRight className="w-4 h-4" />
-      </Button>
+      {/* Mobile Panel - slide over drawer */}
+      <div className="lg:hidden">
+        {/* Mobile overlay */}
+        {isMobilePanelOpen && (
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+            onClick={() => setMobilePanelOpen(false)}
+          />
+        )}
+        
+        {/* Mobile Panel */}
+        <aside
+          className={cn(
+            'fixed right-0 top-0 bottom-0 w-80 bg-card border-l border-border flex flex-col z-50',
+            'transition-transform duration-300 ease-out',
+            isMobilePanelOpen ? 'translate-x-0' : 'translate-x-full'
+          )}
+        >
+          {/* Mobile header */}
+          <div className="flex items-center justify-between p-3 border-b border-border">
+            <span className="text-sm font-medium text-foreground">Panel</span>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobilePanelOpen(false)}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+          
+          <ScrollArea className="flex-1">
+            {/* Apps section */}
+            <div>
+              <div className="px-4 py-3 border-b border-border">
+                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Applications
+                </h2>
+              </div>
+              <AppList />
+            </div>
+            
+            <Separator />
+            
+            {/* Inspector section */}
+            <div>
+              <div className="px-4 py-3 border-b border-border">
+                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Node Inspector
+                </h2>
+              </div>
+              <NodeInspector />
+            </div>
+          </ScrollArea>
+        </aside>
+        
+        {/* Mobile toggle button */}
+        <Button
+          variant="outline"
+          size="icon"
+          className="fixed right-4 bottom-4 z-30 shadow-lg bg-card"
+          onClick={() => setMobilePanelOpen(true)}
+        >
+          <PanelRight className="w-4 h-4" />
+        </Button>
+      </div>
     </>
   );
 }
