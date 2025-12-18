@@ -129,4 +129,6 @@ src/
 **Anuja Shirahatti**  
 Frontend / ECE Student  
 Interested in building scalable, interactive web applications using modern React tools.
+Updated by Anuja
+
 
