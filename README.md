@@ -72,8 +72,6 @@ npm install
 npm run dev
 ## ⚠️ TypeScript Strict Mode Note
 
-## ⚠️ TypeScript Strict Mode Note
-
 In the initial project setup, certain TypeScript configuration files were not editable in the hosted development environment:
 
 - tsconfig.json  
