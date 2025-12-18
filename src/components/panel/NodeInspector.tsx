@@ -2,9 +2,6 @@ import { useCallback, useMemo } from 'react';
 import { Server, Database, MessageSquare, Globe, Clock, Cpu, HardDrive } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store/appStore';
-import { useGraph } from '@/hooks/useApps';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateNodeData, type NodeData } from '@/api/mockApi';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -30,46 +27,42 @@ const statusLabels = {
 };
 
 export function NodeInspector() {
-  const queryClient = useQueryClient();
-  const { selectedAppId, selectedNodeId, activeInspectorTab, setActiveInspectorTab } = useAppStore();
-  const { data: graphData } = useGraph(selectedAppId);
+  const { selectedNodeId, nodes, activeInspectorTab, setActiveInspectorTab, updateNodeData } = useAppStore();
   
   const selectedNode = useMemo(() => {
-    if (!graphData || !selectedNodeId) return null;
-    return graphData.nodes.find((n) => n.id === selectedNodeId);
-  }, [graphData, selectedNodeId]);
+    if (!selectedNodeId) return null;
+    return nodes.find((n) => n.id === selectedNodeId);
+  }, [nodes, selectedNodeId]);
   
   const nodeData = selectedNode?.data;
   const Icon = nodeData ? iconMap[nodeData.type] || Server : Server;
   
-  const mutation = useMutation({
-    mutationFn: ({ field, value }: { field: keyof NodeData; value: unknown }) =>
-      updateNodeData(selectedAppId!, selectedNodeId!, { [field]: value }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['graph', selectedAppId] });
-    },
-  });
-  
   const handleNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      mutation.mutate({ field: 'label', value: e.target.value });
+      if (selectedNodeId) {
+        updateNodeData(selectedNodeId, { label: e.target.value });
+      }
     },
-    [mutation]
+    [selectedNodeId, updateNodeData]
   );
   
   const handleSliderChange = useCallback(
     (value: number[]) => {
-      mutation.mutate({ field: 'configValue', value: value[0] });
+      if (selectedNodeId) {
+        updateNodeData(selectedNodeId, { configValue: value[0] });
+      }
     },
-    [mutation]
+    [selectedNodeId, updateNodeData]
   );
   
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
-      mutation.mutate({ field: 'configValue', value });
+      if (selectedNodeId) {
+        const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+        updateNodeData(selectedNodeId, { configValue: value });
+      }
     },
-    [mutation]
+    [selectedNodeId, updateNodeData]
   );
   
   if (!selectedNodeId || !nodeData) {
