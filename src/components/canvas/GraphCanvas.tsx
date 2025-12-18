@@ -3,14 +3,14 @@ import ReactFlow, {
   Background,
   Controls,
   MiniMap,
-  useNodesState,
-  useEdgesState,
   Node,
   Edge,
   BackgroundVariant,
   useReactFlow,
   NodeChange,
   EdgeChange,
+  applyNodeChanges,
+  applyEdgeChanges,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Loader2 } from 'lucide-react';
@@ -24,12 +24,9 @@ const nodeTypes = {
 };
 
 export function GraphCanvas() {
-  const { selectedAppId, selectedNodeId, setSelectedNodeId } = useAppStore();
+  const { selectedAppId, selectedNodeId, setSelectedNodeId, nodes, edges, setNodes, setEdges } = useAppStore();
   const { data: graphData, isLoading, error } = useGraph(selectedAppId);
   const { fitView } = useReactFlow();
-  
-  const [nodes, setNodes, onNodesChange] = useNodesState<NodeData>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   
   useEffect(() => {
     if (graphData) {
@@ -44,16 +41,16 @@ export function GraphCanvas() {
   
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      onNodesChange(changes);
+      setNodes((nds) => applyNodeChanges(changes, nds) as Node<NodeData>[]);
     },
-    [onNodesChange]
+    [setNodes]
   );
   
   const handleEdgesChange = useCallback(
     (changes: EdgeChange[]) => {
-      onEdgesChange(changes);
+      setEdges((eds) => applyEdgeChanges(changes, eds));
     },
-    [onEdgesChange]
+    [setEdges]
   );
   
   const handleSelectionChange = useCallback(
